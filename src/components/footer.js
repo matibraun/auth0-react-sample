@@ -2,11 +2,11 @@ import React from "react";
 
 const Footer = () => (
   <footer className="bg-light p-3 text-center">
-    <div className="logo" />
+    <div className="" />
     <p>
-      Sample project provided by{" "}
-      <a target="_blank" rel="noopener noreferrer" href="https://auth0.com">
-        Auth0
+      Esta app la va a romper. Por...{" "}
+      <a target="_blank" rel="noopener noreferrer" href="https://nba.com">
+        Mati Braun !!!
       </a>
     </p>
   </footer>

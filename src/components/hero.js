@@ -1,22 +1,46 @@
 import React from "react";
+import Logo_Flevo from '../assets/Logo_Flevo.png';
+import {Link} from "react-router-dom";
 
-const logo = "https://cdn.auth0.com/blog/auth0-react-sample/assets/logo.png";
+
+
 
 const Hero = () => (
   <div className="text-center hero">
-    <img className="mb-3 app-logo" src={logo} alt="React logo" width="120" />
-    <h1 className="mb-4">React Sample Project</h1>
+    <img className="mb-3 app-logo" src={Logo_Flevo} alt="Flevo logo" width="2000" />
+    <h1 className="mb-4">Vamooo Flevo!!!</h1>
     <p className="lead">
-      This is a sample application that demonstrates an authentication flow for
-      an SPA, using{" "}
+      Queres estudiar programacion?
+      <br/>
+      Flevo te tira guitaaa, lokuraaaaaa
+      
+      <br/>
+      {" "}
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://auth0.com/docs/quickstart/spa/react"
+        href="https://beflevo.com/"
       >
-        React
+        Esaaaa
       </a>
+      <br/>
+      <br/>
+      <br/>
+
+      <Link to="/application-intro">
+
+      <button>
+
+          Aplicar!
+
+      </button>
+
+      </Link>
+
     </p>
+
+
+
   </div>
 );
 
