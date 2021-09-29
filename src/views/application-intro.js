@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+
+import { PersonContext } from "../components";
 
 
 
@@ -11,6 +14,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const ApplicationIntro = () => {
 
+
+
     const { user } = useAuth0();
     const { email, nickname } = user;
 
@@ -18,6 +23,8 @@ const ApplicationIntro = () => {
     
   
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
+
+    const { person, setPerson } = useContext(PersonContext)
 
 
     function handleClickComenzar(event) {
@@ -31,7 +38,11 @@ const ApplicationIntro = () => {
             })
             .then((response) => {
                 console.log(response.data);
+                setPerson(response.data);
                 alert('La persona ha sido creada exitosamente')
+
+
+
                 history.push("/step1")
             })
     };
@@ -40,7 +51,7 @@ const ApplicationIntro = () => {
     return (
         <div className="applicationIntro">
             <br/>
-            
+            <h2>{JSON.stringify(person, null, 2)}</h2>
             APPLICATION INTRO
 
             <br/>
