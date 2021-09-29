@@ -46,7 +46,10 @@ const ApplicationIntro = () => {
             <br/>
             <br/>
 
-            HOLA {nickname}
+            HOLA 
+            <br/>
+            {nickname}
+            <br/>
             Gracias por pensar en flevo!
             Estamos aquí para ayudarte a que esto suceda!!
             Hoy en día estudiar en XXX y algun fact copado

@@ -13,20 +13,19 @@ const Step0 = () => {
     const { user } = useAuth0();
   
 
-    const genericEmailURL = "http://127.0.0.1:8000/app_flevo/email/";
-    const specificEmailURL = genericEmailURL + "?email=" + user.email
+    const PersonsURL = "http://127.0.0.1:8000/app_flevo/persons/";
+    const PersonFilteredByEmailURL = PersonsURL + "?email=" + user.email
 
-    const [email, setEmail] = useState("");
     const [person, setPerson] = useState("");
 
     useEffect(() => {
 
         axios
-            .get(specificEmailURL)
+            .get(PersonFilteredByEmailURL)
             .then((response) => {
-                setEmail(response.data[0].email);
                 setPerson(response.data[0])
                 console.log(response)
+                console.log(person.email)
             })
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -35,11 +34,10 @@ const Step0 = () => {
         <div>
             <div className="col-md text-center text-md-left">
                     <h2>
-                        {email}
-
-
+                        {person.email}
                     </h2>
             </div>
+
             <div className="row">
                 <pre className="col-12 text-light bg-dark p-4">
                 {JSON.stringify(person, null, 2)}
