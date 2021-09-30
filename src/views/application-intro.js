@@ -1,8 +1,5 @@
-import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
-
-import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 
 import { PersonContext } from "../components";
@@ -14,44 +11,20 @@ import { PersonContext } from "../components";
 
 const ApplicationIntro = () => {
 
-
-
-    const { user } = useAuth0();
-    const { email, nickname } = user;
-
     const history = useHistory()
-    
-  
-    const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
 
-    const { person, setPerson } = useContext(PersonContext)
+    const { person } = useContext(PersonContext)
 
 
     function handleClickComenzar(event) {
         event.preventDefault();
-        console.log(email)
-    
-        axios
-            .post(personsURL, {
-                email: email,
-                password: 'Hola1234!',
-            })
-            .then((response) => {
-                console.log(response.data);
-                setPerson(response.data);
-                alert('La persona ha sido creada exitosamente')
-
-
-
-                history.push("/step1")
-            })
+        history.push("/step1")
     };
     
 
     return (
         <div className="applicationIntro">
             <br/>
-            <h2>{JSON.stringify(person, null, 2)}</h2>
             APPLICATION INTRO
 
             <br/>
@@ -59,7 +32,7 @@ const ApplicationIntro = () => {
 
             HOLA 
             <br/>
-            {nickname}
+            {person.email}
             <br/>
             Gracias por pensar en flevo!
             Estamos aquí para ayudarte a que esto suceda!!
@@ -77,6 +50,8 @@ const ApplicationIntro = () => {
                 Comenzar
 
             </button>
+            <br/>
+            <h2>{JSON.stringify(person, null, 2)}</h2>
 
 
         </div>

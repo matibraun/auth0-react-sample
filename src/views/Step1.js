@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+
+import { PersonContext } from "../components";
+
 
 
 
@@ -11,8 +14,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Step1 = () => {
 
-    const { user } = useAuth0();
-  
+    const { person } = useContext(PersonContext)
+    
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
     const schoolsURL = "http://127.0.0.1:8000/app_flevo/schools/";
@@ -173,7 +176,7 @@ const Step1 = () => {
         <div>
 
             <div className="col-md text-center text-md-left">
-                <h2>{user.name}</h2>
+                <h2>{person.email}</h2>
                 <p className="lead text-muted">{email}</p>
             </div>
 
@@ -185,10 +188,12 @@ const Step1 = () => {
                     <input
                     type="text"
                     name="email"
-                    default={user.email}
+                    defaultValue={person.email}
                     onChange={handleChangeEmail}
                     />
                 </label><br/>
+
+                {email}
 
                 <label>
                     Password:

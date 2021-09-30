@@ -13,15 +13,15 @@ const Step0 = () => {
     const { user } = useAuth0();
   
 
-    const PersonsURL = "http://127.0.0.1:8000/app_flevo/persons/";
-    const PersonFilteredByEmailURL = PersonsURL + "?email=" + user.email
+    const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
+    const personFilteredByEmailURL = personsURL + "?email=" + user.email
 
     const [person, setPerson] = useState("");
 
     useEffect(() => {
 
         axios
-            .get(PersonFilteredByEmailURL)
+            .get(personFilteredByEmailURL)
             .then((response) => {
                 setPerson(response.data[0])
                 console.log(response)
