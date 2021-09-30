@@ -18,14 +18,14 @@ const Step1 = () => {
     
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
+
+    const currentPersonURL = personsURL + person.id;
+
     const schoolsURL = "http://127.0.0.1:8000/app_flevo/schools/";
     const programsURL = "http://127.0.0.1:8000/app_flevo/programs/";
     const applicationsURL = "http://127.0.0.1:8000/app_flevo/applications/";
 
     const history = useHistory()
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
@@ -61,12 +61,13 @@ const Step1 = () => {
     // }, []);
 
 
-    const getSchools = axios.get(schoolsURL);
-    const getPrograms = axios.get(programsURL);
+    // const getSchools = axios.get(schoolsURL);
+    // const getPrograms = axios.get(programsURL);
 
     useEffect(() => {
+            
         axios
-        .all([getSchools, getPrograms])
+        .all([axios.get(schoolsURL), axios.get(programsURL)])
         .then(
             axios.spread((...responses) => {
                 const responseSchools = responses[0];
@@ -80,17 +81,6 @@ const Step1 = () => {
         )
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-
-    function handleChangeEmail(event) {
-        // event.preventDefault();
-        setEmail(event.target.value);
-    }
-
-    function handleChangePassword(event) {
-        // event.preventDefault();
-        setPassword(event.target.value);
-    }
 
     function handleChangeFirstName(event) {
         // event.preventDefault();
@@ -133,41 +123,37 @@ const Step1 = () => {
 
     function handleClickNext(event) {
         event.preventDefault();
-        console.log(email, password, firstName, middleName, lastName, identityDocumentNumber)
+        console.log(currentPersonURL)
+        console.log(firstName)
 
         axios
-            .post(personsURL, {
-                email: email,
-                password: password,
+            .patch(currentPersonURL, {
                 first_name: firstName,
-                middle_name: middleName,
-                last_name: lastName,
-                identity_document_number: identityDocumentNumber,
+                // middle_name: middleName,
+                // last_name: lastName,
+                // identity_document_number: identityDocumentNumber,
             })
-            .then((response) => {
-                console.log(response.data);
-                return response
-            })
-            .then((response) => {
-                console.log(response.data.id)
+            // .then((response) => {
+            //     console.log(response.data);
+            // })
+            // .then(() => {
 
-                axios
-                .post(applicationsURL, {
-                    applicant: Number(response.data.id),
-                    program: Number(chosenProgram),
-                    program_starting_date: programStartingDate,
-                    percentage_requested: percentageRequested,
-                    application_status: 1,
-                })
-                .then((response) => {
-                    console.log(response)
+            //     axios
+            //     .post(applicationsURL, {
+            //         applicant: Number(person.id),
+            //         program: Number(chosenProgram),
+            //         program_starting_date: programStartingDate,
+            //         percentage_requested: percentageRequested,
+            //         application_status: 1,
+            //     })
+            //     .then((response) => {
 
-                    alert('La aplicacion ha sido creada exitosamente')
+            //         alert('La aplicacion ha sido creada exitosamente')
                     
-                    history.push("/step2")
+            //         history.push("/step2")
 
-                })
-            })
+            //     })
+            // })
     }
 
 
@@ -176,40 +162,18 @@ const Step1 = () => {
         <div>
 
             <div className="col-md text-center text-md-left">
-                <h2>{person.email}</h2>
-                <p className="lead text-muted">{email}</p>
+                <h2>{person.id}{person.email}</h2>
             </div>
 
 
             <form>
-
-            <label>
-                    Email:
-                    <input
-                    type="text"
-                    name="email"
-                    defaultValue={person.email}
-                    onChange={handleChangeEmail}
-                    />
-                </label><br/>
-
-                {email}
-
-                <label>
-                    Password:
-                    <input
-                    type="text"
-                    name="password"
-                    onChange={handleChangePassword}
-                    />
-                </label><br/>
-
 
                 <label>
                     First Name:
                     <input
                     type="text"
                     name="name"
+                    defaultValue={person.first_name}
                     onChange={handleChangeFirstName}
                     />
                 </label><br/>
@@ -219,6 +183,7 @@ const Step1 = () => {
                     <input
                     type="text"
                     name="middle_name"
+                    defaultValue={person.middle_name}
                     onChange={handleChangeMiddleName}
                     />
                 </label><br/>
@@ -228,6 +193,7 @@ const Step1 = () => {
                     <input
                     type="text"
                     name="last_name"
+                    defaultValue={person.last_name}
                     onChange={handleChangeLastName}
                     />
                 </label><br/>
@@ -237,6 +203,7 @@ const Step1 = () => {
                     <input
                     type="text"
                     name="identity_document_number"
+                    defaultValue={person.identity_document_number}
                     onChange={handleChangeIdentityDocumentNumber}
                     />
                 </label><br/>
