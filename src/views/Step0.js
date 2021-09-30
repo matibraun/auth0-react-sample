@@ -15,6 +15,8 @@ const Step0 = () => {
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
     const personFilteredByEmailURL = personsURL + "?email=" + user.email
+    const personWithIdURL = "http://127.0.0.1:8000/app_flevo/persons/82/"; 
+
 
     const [person, setPerson] = useState("");
 
@@ -29,6 +31,11 @@ const Step0 = () => {
             })
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const handleClickPatch = () => {
+        axios
+            .patch(personWithIdURL, {first_name: 'pepessss'})
+
+    }
 
     return (
         <div>
@@ -37,6 +44,11 @@ const Step0 = () => {
                         {person.email}
                     </h2>
             </div>
+
+            <button onClick={handleClickPatch}>
+                hacer patch
+            </button>
+
 
             <div className="row">
                 <pre className="col-12 text-light bg-dark p-4">

@@ -19,7 +19,7 @@ const Step1 = () => {
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
 
-    const currentPersonURL = personsURL + person.id;
+    const currentPersonURL = personsURL + person.id + "/";
 
     const schoolsURL = "http://127.0.0.1:8000/app_flevo/schools/";
     const programsURL = "http://127.0.0.1:8000/app_flevo/programs/";
@@ -27,10 +27,10 @@ const Step1 = () => {
 
     const history = useHistory()
 
-    const [firstName, setFirstName] = useState("");
-    const [middleName, setMiddleName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [identityDocumentNumber, setIdentityDocumentNumber] = useState("");
+    const [firstName, setFirstName] = useState(person.first_name);
+    const [middleName, setMiddleName] = useState(person.middle_name);
+    const [lastName, setLastName] = useState(person.last_name);
+    const [identityDocumentNumber, setIdentityDocumentNumber] = useState(person.identity_document_number);
 
     const [schools, setSchools] = useState([])
     const [programs, setPrograms] = useState([])
@@ -123,37 +123,38 @@ const Step1 = () => {
 
     function handleClickNext(event) {
         event.preventDefault();
+        console.log('aca')
         console.log(currentPersonURL)
         console.log(firstName)
 
         axios
             .patch(currentPersonURL, {
                 first_name: firstName,
-                // middle_name: middleName,
-                // last_name: lastName,
-                // identity_document_number: identityDocumentNumber,
+                middle_name: middleName,
+                last_name: lastName,
+                identity_document_number: identityDocumentNumber,
             })
-            // .then((response) => {
-            //     console.log(response.data);
-            // })
-            // .then(() => {
+            .then((response) => {
+                console.log(response.data);
+            })
+            .then(() => {
 
-            //     axios
-            //     .post(applicationsURL, {
-            //         applicant: Number(person.id),
-            //         program: Number(chosenProgram),
-            //         program_starting_date: programStartingDate,
-            //         percentage_requested: percentageRequested,
-            //         application_status: 1,
-            //     })
-            //     .then((response) => {
+                axios
+                .post(applicationsURL, {
+                    applicant: Number(person.id),
+                    program: Number(chosenProgram),
+                    program_starting_date: programStartingDate,
+                    percentage_requested: percentageRequested,
+                    application_status: 1,
+                })
+                .then((response) => {
 
-            //         alert('La aplicacion ha sido creada exitosamente')
+                    alert('La aplicacion ha sido creada exitosamente')
                     
-            //         history.push("/step2")
+                    // history.push("/step2")
 
-            //     })
-            // })
+                })
+            })
     }
 
 
