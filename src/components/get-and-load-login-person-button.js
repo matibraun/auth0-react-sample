@@ -11,8 +11,7 @@ import { PersonContext } from ".";
 const GetAndLoadLoginPersonButton = () => {
   
   const { user } = useAuth0();
-  const { email } = user;
-
+  
   const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
   const personFilteredByEmailURL = personsURL + "?email=" + user.email
 
@@ -22,9 +21,6 @@ const GetAndLoadLoginPersonButton = () => {
 
 
   const handleClickGetAndLoadPerson = () => {
-
-    console.log(email)
-
 
     axios
         .get(personFilteredByEmailURL)

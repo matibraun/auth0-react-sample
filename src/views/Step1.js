@@ -33,9 +33,9 @@ const Step1 = () => {
     const [identityDocumentNumber, setIdentityDocumentNumber] = useState(person.identity_document_number);
 
     const [schools, setSchools] = useState([])
-    const [programs, setPrograms] = useState([])
-
     const [chosenSchool, setChosenSchool] = useState(null)
+
+    const [programs, setPrograms] = useState([])
     const [chosenProgram, setChosenProgram] = useState(null)
 
     const [programStartingDate, setProgramStartingDate] = useState(null)
@@ -151,7 +151,7 @@ const Step1 = () => {
 
                     alert('La aplicacion ha sido creada exitosamente')
                     
-                    // history.push("/step2")
+                    history.push("/step2")
 
                 })
             })

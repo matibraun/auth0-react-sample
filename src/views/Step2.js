@@ -3,17 +3,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+
+import { PersonContext } from "../components";
 
 
 // primer formulario
 
 const Step2 = () => {
 
-    const { user } = useAuth0();
-
+    const { person } = useContext(PersonContext)
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/"
+
+    const currentPersonURL = personsURL + person.id + "/";
+
+
     const gendersURL = "http://127.0.0.1:8000/app_flevo/genders/"
     const civilStatesURL = "http://127.0.0.1:8000/app_flevo/civil_states/"
     const housingSituationsURL = "http://127.0.0.1:8000/app_flevo/housing_situations/"
@@ -25,56 +30,51 @@ const Step2 = () => {
 
     const history = useHistory()
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
     const [genders, setGenders] = useState([]);
-
     const [chosenGender, setChosenGender] = useState(null)
 
-
-    const [dateOfBirth, setDateOfBirth] = useState("");
-    const [identityDocumentNumber, setIdentityDocumentNumber] = useState("");
-    const [taxNumber, setTaxNumber] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState(person.date_of_birth);
+    const [identityDocumentNumber, setIdentityDocumentNumber] = useState(person.identity_document_number);
+    const [taxNumber, setTaxNumber] = useState(person.tax_number);
     
     const [civilStates, setCivilStates] = useState([]);
-
     const [chosenCivilState, setChosenCivilState] = useState(null)
 
     const [housingSituations, setHousingSituations] = useState([]);
-
     const [chosenHousingSituation, setChosenHousingSituation] = useState(null)
 
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [street, setStreet] = useState("");
-    const [houseNumber, setHouseNumber] = useState("");
-    const [floorApartment, setFloorApartment] = useState("");
-    const [zipCode, setZipCode] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState(person.phone_number);
+    const [street, setStreet] = useState(person.street);
+    const [houseNumber, setHouseNumber] = useState(person.house_number);
+    const [floorApartment, setFloorApartment] = useState(person.floor_apartment);
+    const [zipCode, setZipCode] = useState(person.zip_code);
 
 
     const [districts, setDistricts] = useState([])
-    const [cities, setCities] = useState([])
-    const [provinces, setProvinces] = useState([])
-    const [countries, setCountries] = useState([])
-
     const [chosenDistrict, setChosenDistrict] = useState(null)
+
+    const [cities, setCities] = useState([])
     const [chosenCity, setChosenCity] = useState(null)
+
+    const [provinces, setProvinces] = useState([])
     const [chosenProvince, setChosenProvince] = useState(null)
+    
+    const [countries, setCountries] = useState([])
     const [chosenCountry, setChosenCountry] = useState(null)
 
 
-    const getGenders = axios.get(gendersURL);
-    const getCivilStates = axios.get(civilStatesURL);
-    const getHousingSituations = axios.get(housingSituationsURL);
-    const getDistricts = axios.get(districtsURL);
-    const getCities = axios.get(citiesURL);
-    const getProvinces = axios.get(provincesURL);
-    const getCountries = axios.get(countriesURL);
+    // const getGenders = axios.get(gendersURL);
+    // const getCivilStates = axios.get(civilStatesURL);
+    // const getHousingSituations = axios.get(housingSituationsURL);
+    // const getDistricts = axios.get(districtsURL);
+    // const getCities = axios.get(citiesURL);
+    // const getProvinces = axios.get(provincesURL);
+    // const getCountries = axios.get(countriesURL);
 
 
     useEffect(() => {
         axios
-        .all([getGenders, getCivilStates, getHousingSituations, getDistricts, getCities, getProvinces, getCountries])
+        .all([axios.get(gendersURL), axios.get(civilStatesURL), axios.get(housingSituationsURL), axios.get(districtsURL), axios.get(citiesURL), axios.get(provincesURL), axios.get(countriesURL)])
         .then(
             axios.spread((...responses) => {
                 const responseGenders = responses[0];
@@ -99,16 +99,6 @@ const Step2 = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
-
-    function handleChangeEmail(event) {
-        // event.preventDefault();
-        setEmail(event.target.value);
-    }
-
-    function handleChangePassword(event) {
-        // event.preventDefault();
-        setPassword(event.target.value);
-    }
 
     function handleChangeChosenGender(event) {
         // event.preventDefault();
@@ -179,12 +169,10 @@ const Step2 = () => {
 
     function handleClickNext(event) {
         event.preventDefault();
-        console.log(email, password, chosenGender, dateOfBirth,  identityDocumentNumber, taxNumber, chosenCivilState, chosenHousingSituation, phoneNumber, street, houseNumber, floorApartment, zipCode, chosenDistrict, chosenCity, chosenProvince, chosenCountry)
+        console.log(currentPersonURL)
 
         axios
-            .post(personsURL, {
-                email: email,
-                password: password,
+            .patch(currentPersonURL, {
                 date_of_birth: dateOfBirth,
                 gender: chosenGender,
                 identity_document_number: identityDocumentNumber,
@@ -215,31 +203,11 @@ const Step2 = () => {
         <div>
 
             <div className="col-md text-center text-md-left">
-                <h2>{user.name}</h2>
-                <p className="lead text-muted">{email}</p>
+                <h2>{person.id}{person.email}</h2>
             </div>
 
 
             <form>
-
-            <label>
-                    Email:
-                    <input
-                    type="text"
-                    name="email"
-                    onChange={handleChangeEmail}
-                    />
-                </label><br/>
-
-                <label>
-                    Password:
-                    <input
-                    type="text"
-                    name="password"
-                    onChange={handleChangePassword}
-                    />
-                </label><br/>
-
 
                 <label>
 
@@ -263,6 +231,7 @@ const Step2 = () => {
                     <input
                     type="date"
                     name="date_of_birth"
+                    defaultValue={person.date_of_birth}
                     onChange={handleChangeDateOfBirth}
                     />
                 </label><br/>
@@ -272,6 +241,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="identity_document_number"
+                    defaultValue={person.identity_document_number}
                     onChange={handleChangeIdentityDocumentNumber}
                     />
                 </label><br/>
@@ -281,6 +251,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="tax_number"
+                    defaultValue={person.tax_number}
                     onChange={handleChangeTaxNumber}
                     />
                 </label><br/>
@@ -289,7 +260,9 @@ const Step2 = () => {
                 <label>
 
                     Civil State:
-                    <select name='option' onChange={handleChangeChosenCivilState}>
+                    <select
+                    name='option'
+                    onChange={handleChangeChosenCivilState}>
 
                         <option value=''></option>
 
@@ -326,6 +299,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="phone_number"
+                    defaultValue={person.phone_number}
                     onChange={handleChangePhoneNumber}
                     />
                 </label><br/>
@@ -336,6 +310,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="street"
+                    defaultValue={person.street}
                     onChange={handleChangeStreet}
                     />
                 </label><br/>
@@ -345,6 +320,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="house_number"
+                    defaultValue={person.house_number}
                     onChange={handleChangeHouseNumber}
                     />
                 </label><br/>
@@ -354,6 +330,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="floor_apartment"
+                    defaultValue={person.floor_apartment}
                     onChange={handleChangeFloorApartment}
                     />
                 </label><br/>
@@ -363,6 +340,7 @@ const Step2 = () => {
                     <input
                     type="text"
                     name="zip_code"
+                    defaultValue={person.zip_code}
                     onChange={handleChangeZipCode}
                     />
                 </label><br/>
