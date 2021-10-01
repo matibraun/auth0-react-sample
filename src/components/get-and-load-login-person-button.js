@@ -17,7 +17,7 @@ const GetAndLoadLoginPersonButton = () => {
   const personFilteredByEmailURL = personsURL + "?email=" + user.email
 
 
-  const { person, setPerson } = useContext(PersonContext)
+  const { setPerson } = useContext(PersonContext)
 
 
 
