@@ -290,7 +290,6 @@ const Step4 = () => {
                     />
                 </label><br/>
 
-
                 <label>
                     Do You Have a Bank Account:
                     <input
