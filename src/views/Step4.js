@@ -3,17 +3,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+
+import { PersonContext } from "../components";
 
 
 // primer formulario
 
 const Step4 = () => {
 
-    const { user } = useAuth0();
+    const { person } = useContext(PersonContext)
 
 
     const personsURL = "http://127.0.0.1:8000/app_flevo/persons/"
+
+    const currentPersonURL = personsURL + person.id + "/";
+
+
     const occupationsURL = "http://127.0.0.1:8000/app_flevo/occupations/"
     const contractTypesURL = "http://127.0.0.1:8000/app_flevo/contract_types/"
     const workloadsURL = "http://127.0.0.1:8000/app_flevo/workloads/"
@@ -23,8 +29,6 @@ const Step4 = () => {
 
     const history = useHistory()
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     const [occupations, setOccupations] = useState([]);
     const [chosenOccupation, setChosenOccupation] = useState(null)
@@ -35,17 +39,17 @@ const Step4 = () => {
     const [workloads, setWorkloads] = useState([]);
     const [chosenWorkload, setChosenWorkload] = useState(null)
 
-    const [company, setCompany] = useState("");
+    const [company, setCompany] = useState(person.company);
 
     const [sectors, setSectors] = useState([]);
     const [chosenSector, setChosenSector] = useState(null)
 
-    const [position, setPosition] = useState("");
-    const [workingStartingDate, setWorkingStartingDate] = useState("");
-    const [averageNetMonthlySalaryLastThreeMonths, setAverageNetMonthlySalaryLastThreeMonths] = useState("");
+    const [position, setPosition] = useState(person.position);
+    const [workingStartingDate, setWorkingStartingDate] = useState(person.working_starting_date);
+    const [averageNetMonthlySalaryLastThreeMonths, setAverageNetMonthlySalaryLastThreeMonths] = useState(person.average_net_monthly_salary_last_three_months);
     // ver si false o ""
-    const [hasAccount, setHasAccount] = useState(false);
-    const [bank, setBank] = useState("");
+    const [hasAccount, setHasAccount] = useState(person.has_account);
+    const [bank, setBank] = useState(person.bank);
 
     const [accountTypes, setAccountTypes] = useState([]);
     const [chosenAccountType, setChosenAccountType] = useState(null)
@@ -53,16 +57,16 @@ const Step4 = () => {
 
 
 
-    const getOccupations = axios.get(occupationsURL);
-    const getContractTypes = axios.get(contractTypesURL);
-    const getWorkloads = axios.get(workloadsURL);
-    const getSectors = axios.get(sectorsURL);
-    const getAccountTypes = axios.get(accountTypesURL);
+    // const getOccupations = axios.get(occupationsURL);
+    // const getContractTypes = axios.get(contractTypesURL);
+    // const getWorkloads = axios.get(workloadsURL);
+    // const getSectors = axios.get(sectorsURL);
+    // const getAccountTypes = axios.get(accountTypesURL);
 
 
     useEffect(() => {
         axios
-        .all([getOccupations, getContractTypes, getWorkloads, getSectors, getAccountTypes])
+        .all([axios.get(occupationsURL), axios.get(contractTypesURL), axios.get(workloadsURL), axios.get(sectorsURL), axios.get(accountTypesURL)])
         .then(
             axios.spread((...responses) => {
                 const responseOccupations = responses[0];
@@ -84,15 +88,6 @@ const Step4 = () => {
 
 
 
-    function handleChangeEmail(event) {
-        // event.preventDefault();
-        setEmail(event.target.value);
-    }
-
-    function handleChangePassword(event) {
-        // event.preventDefault();
-        setPassword(event.target.value);
-    }
 
     function handleChangeChosenOccupation(event) {
         // event.preventDefault();
@@ -119,7 +114,6 @@ const Step4 = () => {
         setChosenSector(event.target.value);
     }
 
-
     function handleChangePosition(event) {
         // event.preventDefault();
         setPosition(event.target.value);
@@ -141,10 +135,12 @@ const Step4 = () => {
     }
 
     function handleChangeBank(event) {
+        // event.preventDefault();
         setBank(event.target.value);
     }
 
     function handleChangeChosenAccountType(event) {
+        // event.preventDefault();
         setChosenAccountType(event.target.value);
     }
 
@@ -153,14 +149,11 @@ const Step4 = () => {
 
     function handleClickNext(event) {
         event.preventDefault();
-        console.log(email, password, chosenOccupation, chosenContractType,  chosenWorkload, company, chosenSector, position, workingStartingDate, averageNetMonthlySalaryLastThreeMonths, hasAccount, bank, chosenAccountType)
 
         axios
-            .post(personsURL, {
-                email: email,
-                password: password,
+            .patch(currentPersonURL, {
                 occupation: chosenOccupation,
-                gendercontract_type: chosenContractType,
+                contract_type: chosenContractType,
                 workload: chosenWorkload,
                 company: company, 
                 sector: chosenSector,
@@ -185,30 +178,10 @@ const Step4 = () => {
         <div>
 
             <div className="col-md text-center text-md-left">
-                <h2>{user.name}</h2>
-                <p className="lead text-muted">{email}</p>
+                <h2>{person.id}{person.email}</h2>
             </div>
 
             <form>
-
-            <label>
-                    Email:
-                    <input
-                    type="text"
-                    name="email"
-                    onChange={handleChangeEmail}
-                    />
-                </label><br/>
-
-                <label>
-                    Password:
-                    <input
-                    type="text"
-                    name="password"
-                    onChange={handleChangePassword}
-                    />
-                </label><br/>
-
 
                 <label>
 
@@ -225,7 +198,6 @@ const Step4 = () => {
                     </select>
 
                 </label><br/>
-                <br/>
 
                 <label>
 
@@ -242,7 +214,6 @@ const Step4 = () => {
                     </select>
 
                 </label><br/>
-                <br/>
 
 
                 <label>
@@ -260,7 +231,6 @@ const Step4 = () => {
                     </select>
 
                 </label><br/>
-                <br/>
 
                 <label>
                     Company:
@@ -286,7 +256,6 @@ const Step4 = () => {
                     </select>
 
                 </label><br/>
-                <br/>
 
                 <label>
                     Position:
@@ -351,14 +320,6 @@ const Step4 = () => {
                     </select>
 
                 </label><br/>
-                <br/>
-
-
-
-
-                {email}<br/>
-                {password}<br/>
-
 
 
                 <button
