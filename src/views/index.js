@@ -3,11 +3,12 @@ import Home from "./home";
 import Profile from "./profile";
 import AboutUs from "./about-us";
 import ApplicationIntro from "./application-intro";
-import Step0 from "./Step0";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import Step4 from "./Step4";
+import Step0 from "./step0";
+import Step1 from "./step1";
+import Step2 from "./step2";
+import Step3 from "./step3";
+import Step4 from "./step4";
+import ApplicationReview from "./application-review";
 
 
-export { ExternalApi, Home, Profile, AboutUs, ApplicationIntro, Step0, Step1, Step2, Step3, Step4 };
+export { ExternalApi, Home, Profile, AboutUs, ApplicationIntro, Step0, Step1, Step2, Step3, Step4, ApplicationReview };
