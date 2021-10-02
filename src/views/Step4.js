@@ -237,6 +237,7 @@ const Step4 = () => {
                     <input
                     type="text"
                     name="company"
+                    defaultValue={person.company}
                     onChange={handleChangeCompany}
                     />
                 </label><br/>
@@ -262,6 +263,7 @@ const Step4 = () => {
                     <input
                     type="text"
                     name="position"
+                    defaultValue={person.position}
                     onChange={handleChangePosition}
                     />
                 </label><br/>
@@ -273,6 +275,7 @@ const Step4 = () => {
                     <input
                     type="date"
                     name="working_starting_date"
+                    defaultValue={person.working_starting_date}
                     onChange={handleChangeWorkingStartingDate}
                     />
                 </label><br/>
@@ -282,6 +285,7 @@ const Step4 = () => {
                     <input
                     type="text" pattern="[0-9]*"
                     name="average_net_monthly_salary_last_three_months"
+                    defaultValue={person.average_net_monthly_salary_last_three_months}
                     onChange={handleChangeAverageNetMonthlySalaryLastThreeMonths}
                     />
                 </label><br/>
@@ -292,6 +296,7 @@ const Step4 = () => {
                     <input
                     type="checkbox"
                     name="has_account"
+                    defaultValue={person.has_account}
                     onChange={handleChangeHasAccount}
                     />
                 </label><br/>
@@ -301,6 +306,7 @@ const Step4 = () => {
                     <input
                     type="text"
                     name="bank"
+                    defaultValue={person.bank}
                     onChange={handleChangeBank}
                     />
                 </label><br/>
