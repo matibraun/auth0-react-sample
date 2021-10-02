@@ -131,7 +131,7 @@ const Step4 = () => {
 
     function handleChangeHasAccount(event) {
         // event.preventDefault();
-        setHasAccount(!hasAccount);
+        setHasAccount(event.target.checked);
     }
 
     function handleChangeBank(event) {
@@ -295,7 +295,7 @@ const Step4 = () => {
                     <input
                     type="checkbox"
                     name="has_account"
-                    defaultValue={person.has_account}
+                    defaultChecked={person.has_account}
                     onChange={handleChangeHasAccount}
                     />
                 </label><br/>
