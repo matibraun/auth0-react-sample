@@ -101,7 +101,9 @@ const Step3 = () => {
                 <label>
 
                     Education Level:
-                    <select name='option' onChange={handleChangeChosenEducationLevel}>
+                    
+                    
+                    <select name='option' defaultValue={educationLevels[person.education_level]} onChange={handleChangeChosenEducationLevel}>
 
                         <option value=''></option>
 
