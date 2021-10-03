@@ -31,18 +31,18 @@ const Step4 = () => {
 
 
     const [occupations, setOccupations] = useState([]);
-    const [chosenOccupation, setChosenOccupation] = useState(null)
+    const [chosenOccupation, setChosenOccupation] = useState(person.occupation)
 
     const [contractTypes, setContractTypes] = useState([]);
-    const [chosenContractType, setChosenContractType] = useState(null)
+    const [chosenContractType, setChosenContractType] = useState(person.contract_type)
 
     const [workloads, setWorkloads] = useState([]);
-    const [chosenWorkload, setChosenWorkload] = useState(null)
+    const [chosenWorkload, setChosenWorkload] = useState(person.workload)
 
     const [company, setCompany] = useState(person.company);
 
     const [sectors, setSectors] = useState([]);
-    const [chosenSector, setChosenSector] = useState(null)
+    const [chosenSector, setChosenSector] = useState(person.sector)
 
     const [position, setPosition] = useState(person.position);
     const [workingStartingDate, setWorkingStartingDate] = useState(person.working_starting_date);
@@ -52,7 +52,7 @@ const Step4 = () => {
     const [bank, setBank] = useState(person.bank);
 
     const [accountTypes, setAccountTypes] = useState([]);
-    const [chosenAccountType, setChosenAccountType] = useState(null)
+    const [chosenAccountType, setChosenAccountType] = useState(person.account_type)
 
 
 

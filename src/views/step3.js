@@ -26,10 +26,10 @@ const Step3 = () => {
 
 
     const [educationLevels, setEducationLevels] = useState([]);
-    const [chosenEducationLevel, setChosenEducationLevel] = useState(null)
+    const [chosenEducationLevel, setChosenEducationLevel] = useState(person.education_level)
 
-    const [studiesFinishingDate, setStudiesFinishingDate] = useState("");
-    const [linkedinProfile, setLinkedinProfile] = useState("");
+    const [studiesFinishingDate, setStudiesFinishingDate] = useState(person.studies_finishing_date);
+    const [linkedinProfile, setLinkedinProfile] = useState(person.linkedin_profile);
 
 
 
@@ -101,9 +101,8 @@ const Step3 = () => {
                 <label>
 
                     Education Level:
-                    
-                    
-                    <select name='option' defaultValue={educationLevels[person.education_level]} onChange={handleChangeChosenEducationLevel}>
+
+                    <select name='option' value={chosenEducationLevel == null ? "" : chosenEducationLevel} onChange={handleChangeChosenEducationLevel}>
 
                         <option value=''></option>
 

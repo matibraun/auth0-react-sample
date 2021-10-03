@@ -31,17 +31,17 @@ const Step2 = () => {
     const history = useHistory()
 
     const [genders, setGenders] = useState([]);
-    const [chosenGender, setChosenGender] = useState(null)
+    const [chosenGender, setChosenGender] = useState(person.gender)
 
     const [dateOfBirth, setDateOfBirth] = useState(person.date_of_birth);
     const [identityDocumentNumber, setIdentityDocumentNumber] = useState(person.identity_document_number);
     const [taxNumber, setTaxNumber] = useState(person.tax_number);
     
     const [civilStates, setCivilStates] = useState([]);
-    const [chosenCivilState, setChosenCivilState] = useState(null)
+    const [chosenCivilState, setChosenCivilState] = useState(person.civil_state)
 
     const [housingSituations, setHousingSituations] = useState([]);
-    const [chosenHousingSituation, setChosenHousingSituation] = useState(null)
+    const [chosenHousingSituation, setChosenHousingSituation] = useState(person.housing_situation)
 
     const [phoneNumber, setPhoneNumber] = useState(person.phone_number);
     const [street, setStreet] = useState(person.street);
@@ -51,16 +51,16 @@ const Step2 = () => {
 
 
     const [districts, setDistricts] = useState([])
-    const [chosenDistrict, setChosenDistrict] = useState(null)
+    const [chosenDistrict, setChosenDistrict] = useState(person.district)
 
     const [cities, setCities] = useState([])
-    const [chosenCity, setChosenCity] = useState(null)
+    const [chosenCity, setChosenCity] = useState(person.city)
 
     const [provinces, setProvinces] = useState([])
-    const [chosenProvince, setChosenProvince] = useState(null)
+    const [chosenProvince, setChosenProvince] = useState(person.province)
     
     const [countries, setCountries] = useState([])
-    const [chosenCountry, setChosenCountry] = useState(null)
+    const [chosenCountry, setChosenCountry] = useState(person.country)
 
 
     // const getGenders = axios.get(gendersURL);
