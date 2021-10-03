@@ -120,7 +120,7 @@ const Step3 = () => {
                     <input
                     type="date"
                     name="studies_finishing_date"
-                    default={person.studies_finishing_date}
+                    defaultValue={person.studies_finishing_date}
                     onChange={handleChangeStudiesFinishingDate}
                     />
                 </label><br/>
@@ -130,7 +130,7 @@ const Step3 = () => {
                     <input
                     type="text"
                     name="linkedin_profile"
-                    default={person.linkedin_profile}
+                    defaultValue={person.linkedin_profile}
                     onChange={handleChangeLinkedinProfile}
                     />
                 </label><br/>
