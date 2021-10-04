@@ -102,7 +102,7 @@ const Step3 = () => {
 
                     Education Level:
 
-                    <select name='option' value={chosenEducationLevel == null ? "" : chosenEducationLevel} onChange={handleChangeChosenEducationLevel}>
+                    <select name='option' value={chosenEducationLevel === null ? "" : chosenEducationLevel} onChange={handleChangeChosenEducationLevel}>
 
                         <option value=''></option>
 

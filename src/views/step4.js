@@ -47,7 +47,7 @@ const Step4 = () => {
     const [position, setPosition] = useState(person.position);
     const [workingStartingDate, setWorkingStartingDate] = useState(person.working_starting_date);
     const [averageNetMonthlySalaryLastThreeMonths, setAverageNetMonthlySalaryLastThreeMonths] = useState(person.average_net_monthly_salary_last_three_months);
-    // ver si false o ""
+
     const [hasAccount, setHasAccount] = useState(person.has_account);
     const [bank, setBank] = useState(person.bank);
 
@@ -187,7 +187,7 @@ const Step4 = () => {
                 <label>
 
                     Occupation:
-                    <select name='option' value={chosenOccupation == null ? "" : chosenOccupation} onChange={handleChangeChosenOccupation}>
+                    <select name='option' value={chosenOccupation === null ? "" : chosenOccupation} onChange={handleChangeChosenOccupation}>
 
                         <option value=''></option>
 
@@ -203,7 +203,7 @@ const Step4 = () => {
                 <label>
 
                     Contract Type:
-                    <select name='option' value={chosenContractType == null ? "" : chosenContractType} onChange={handleChangeChosenContractType}>
+                    <select name='option' value={chosenContractType === null ? "" : chosenContractType} onChange={handleChangeChosenContractType}>
 
                         <option value=''></option>
 
@@ -220,7 +220,7 @@ const Step4 = () => {
                 <label>
 
                     Workload:
-                    <select name='option' value={chosenWorkload == null ? "" : chosenWorkload} onChange={handleChangeChosenWorkload}>
+                    <select name='option' value={chosenWorkload === null ? "" : chosenWorkload} onChange={handleChangeChosenWorkload}>
 
                         <option value=''></option>
 
@@ -246,7 +246,7 @@ const Step4 = () => {
                 <label>
 
                     Sector:
-                    <select name='option' value={chosenSector == null ? "" : chosenSector} onChange={handleChangeChosenSector}>
+                    <select name='option' value={chosenSector === null ? "" : chosenSector} onChange={handleChangeChosenSector}>
 
                         <option value=''></option>
 
@@ -318,7 +318,7 @@ const Step4 = () => {
                     <label>
 
                         Account Type:
-                        <select name='option' value={chosenAccountType == null ? "" : chosenAccountType} onChange={handleChangeChosenAccountType}>
+                        <select name='option' value={chosenAccountType === null ? "" : chosenAccountType} onChange={handleChangeChosenAccountType}>
 
                             <option value=''></option>
 

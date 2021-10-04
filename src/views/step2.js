@@ -212,7 +212,7 @@ const Step2 = () => {
                 <label>
 
                     Gender:
-                    <select name='option'  value={chosenGender == null ? "" : chosenGender} onChange={handleChangeChosenGender}>
+                    <select name='option'  value={chosenGender === null ? "" : chosenGender} onChange={handleChangeChosenGender}>
 
                         <option value=''></option>
 
@@ -262,7 +262,7 @@ const Step2 = () => {
                     Civil State:
                     <select
                     name='option'
-                    value={chosenCivilState == null ? "" : chosenCivilState} 
+                    value={chosenCivilState === null ? "" : chosenCivilState} 
                     onChange={handleChangeChosenCivilState}>
 
                         <option value=''></option>
@@ -279,7 +279,7 @@ const Step2 = () => {
                 <label>
 
                     Housing Situation:
-                    <select name='option' value={chosenHousingSituation == null ? "" : chosenHousingSituation} onChange={handleChangeChosenHousingSituation}>
+                    <select name='option' value={chosenHousingSituation === null ? "" : chosenHousingSituation} onChange={handleChangeChosenHousingSituation}>
 
                         <option value=''></option>
 
@@ -354,7 +354,7 @@ const Step2 = () => {
                 <label>
 
                     District:
-                    <select name='option' value={chosenDistrict == null ? "" : chosenDistrict} onChange={handleChangeChosenDistrict}>
+                    <select name='option' value={chosenDistrict === null ? "" : chosenDistrict} onChange={handleChangeChosenDistrict}>
 
                         <option value=''></option>
 
@@ -371,7 +371,7 @@ const Step2 = () => {
                 <label>
 
                     City:
-                    <select name='option' value={chosenCity == null ? "" : chosenCity} onChange={handleChangeChosenCity}>
+                    <select name='option' value={chosenCity === null ? "" : chosenCity} onChange={handleChangeChosenCity}>
 
                         <option value=''></option>
 
@@ -387,7 +387,7 @@ const Step2 = () => {
                 <label>
 
                     Province:
-                    <select name='option' value={chosenProvince == null ? "" : chosenProvince} onChange={handleChangeChosenProvince}>
+                    <select name='option' value={chosenProvince === null ? "" : chosenProvince} onChange={handleChangeChosenProvince}>
 
                         <option value=''></option>
 
@@ -402,9 +402,8 @@ const Step2 = () => {
 
 
                 <label>
-{/* Cambiar todos los == por === */}
                     Country:
-                    <select name='option' value={chosenCountry == null ? "" : chosenCountry} onChange={handleChangeChosenCountry}>
+                    <select name='option' value={chosenCountry === null ? "" : chosenCountry} onChange={handleChangeChosenCountry}>
 
                         <option value=''></option>
 
