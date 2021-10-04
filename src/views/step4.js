@@ -128,7 +128,7 @@ const Step4 = () => {
         // event.preventDefault();
         setAverageNetMonthlySalaryLastThreeMonths(event.target.value);
     }
-
+// ojo que aca va con target.checked
     function handleChangeHasAccount(event) {
         // event.preventDefault();
         setHasAccount(event.target.checked);
@@ -187,7 +187,7 @@ const Step4 = () => {
                 <label>
 
                     Occupation:
-                    <select name='option' onChange={handleChangeChosenOccupation}>
+                    <select name='option' value={chosenOccupation == null ? "" : chosenOccupation} onChange={handleChangeChosenOccupation}>
 
                         <option value=''></option>
 
@@ -203,7 +203,7 @@ const Step4 = () => {
                 <label>
 
                     Contract Type:
-                    <select name='option' onChange={handleChangeChosenContractType}>
+                    <select name='option' value={chosenContractType == null ? "" : chosenContractType} onChange={handleChangeChosenContractType}>
 
                         <option value=''></option>
 
@@ -220,7 +220,7 @@ const Step4 = () => {
                 <label>
 
                     Workload:
-                    <select name='option' onChange={handleChangeChosenWorkload}>
+                    <select name='option' value={chosenWorkload == null ? "" : chosenWorkload} onChange={handleChangeChosenWorkload}>
 
                         <option value=''></option>
 
@@ -246,7 +246,7 @@ const Step4 = () => {
                 <label>
 
                     Sector:
-                    <select name='option' onChange={handleChangeChosenSector}>
+                    <select name='option' value={chosenSector == null ? "" : chosenSector} onChange={handleChangeChosenSector}>
 
                         <option value=''></option>
 
@@ -318,7 +318,7 @@ const Step4 = () => {
                     <label>
 
                         Account Type:
-                        <select name='option' onChange={handleChangeChosenAccountType}>
+                        <select name='option' value={chosenAccountType == null ? "" : chosenAccountType} onChange={handleChangeChosenAccountType}>
 
                             <option value=''></option>
 
