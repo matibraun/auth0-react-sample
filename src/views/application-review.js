@@ -422,7 +422,7 @@ const ApplicationReview = () => {
 
                     alert('La aplicacion ha sido creada exitosamente')
                     
-                    history.push("/step2")
+                    history.push("/application-success")
 
                 })
             })
