@@ -402,7 +402,7 @@ const Step2 = () => {
 
 
                 <label>
-
+{/* Cambiar todos los == por === */}
                     Country:
                     <select name='option' value={chosenCountry == null ? "" : chosenCountry} onChange={handleChangeChosenCountry}>
 

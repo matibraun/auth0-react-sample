@@ -11,7 +11,6 @@ import { PersonContext } from ".";
 const PostAndLoadSignupPersonButton = () => {
   
   const { user } = useAuth0();
-  const { email } = user;
 
   const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
 
@@ -21,11 +20,11 @@ const PostAndLoadSignupPersonButton = () => {
 
   const handleClickPostAndLoadPerson = () => {
 
-    console.log(email)
+    console.log(user.email)
 
     axios
         .post(personsURL, {
-            email: email,
+            email: user.email,
             password: 'Hola1234!',
         })
         .then((response) => {
