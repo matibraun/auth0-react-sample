@@ -3,6 +3,7 @@ import React from "react";
 
 const MainNav = () => (
   <div className="navbar-nav mr-auto">
+
     <NavLink
       to="/"
       exact
