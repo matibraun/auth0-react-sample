@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { NavBar, Footer, Loading, PersonContext } from "./components";
-import { Home, Profile, ExternalApi, AboutUs, ApplicationIntro, Step0, Step1, Step2, Step3, Step4, ApplicationReview, ApplicationSuccess } from "./views";
+import { Home, Profile, ExternalApi, AboutUs, ApplicationIntro, Step0, Step1, Step2, Step3, Step4, ApplicationReview, ApplicationSuccess, CodingDojo } from "./views";
 import ProtectedRoute from "./auth/protected-route";
 
 import "./app.css";
@@ -36,6 +36,8 @@ const App = () => {
             <ProtectedRoute path="/application-success" component={ApplicationSuccess} />
             <ProtectedRoute path="/profile" component={Profile} />
             <ProtectedRoute path="/external-api" component={ExternalApi} />
+            <Route path="/coding-dojo" component={CodingDojo} />
+
           </Switch>
         </div>
         <Footer />
