@@ -1,13 +1,13 @@
 import React from "react";
 
-import { IFrameForm } from "../components";
+import { IframeForm } from "../components";
 
 const CodingDojo = () => {
 
     const schoolId = '5'
 
     return (
-        <IFrameForm schoolId={schoolId}/>
+        <IframeForm schoolId={schoolId}/>
     )
 };
 

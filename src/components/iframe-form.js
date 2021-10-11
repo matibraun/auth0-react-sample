@@ -3,10 +3,14 @@ import React, { useEffect, useState } from "react";
 import Logo_Flevo from '../assets/Logo_Flevo.png';
 
 import axios from "axios";
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 
-const IFrameForm = (props) => {
+const IframeForm = (props) => {
+
+    const personsURL = "http://127.0.0.1:8000/app_flevo/persons/";
+
+    const applicationsURL = "http://127.0.0.1:8000/app_flevo/applications/";
 
     const schoolsURL = "http://127.0.0.1:8000/app_flevo/schools/";
 
@@ -25,6 +29,7 @@ const IFrameForm = (props) => {
     const [school, setSchool] = useState()
 
     const [programs, setPrograms] = useState([])
+    const [chosenProgram, setChosenProgram] = useState([])
 
     const [programStartingDate, setProgramStartingDate] = useState(null)
     const [percentageRequested, setPercentageRequested] = useState(100)
@@ -69,8 +74,8 @@ const IFrameForm = (props) => {
         setLastName(event.target.value);
     }
 
-    function handleChangeProgram(event) {
-        setPrograms(event.target.value);
+    function handleChangeChosenProgram(event) {
+        setChosenProgram(event.target.value);
     }
 
     function handleChangeProgramStartingDate(event) {
@@ -83,6 +88,37 @@ const IFrameForm = (props) => {
 
     
     function handleClickNext(event) {
+        event.preventDefault();
+        console.log('aca')
+        console.log(personsURL)
+        console.log(firstName)
+
+        axios
+            .post(personsURL, {
+                email: email,
+                password: 'Hola1234!',
+                first_name: firstName,
+                middle_name: null,
+                last_name: lastName,
+            })
+            .then((response) => {
+                console.log(response.data.id);
+                axios
+                .post(applicationsURL, {
+                    applicant: response.data.id,
+                    program: Number(chosenProgram),
+                    program_starting_date: programStartingDate,
+                    percentage_requested: percentageRequested,
+                    application_status: 1,
+                })
+                .then( () => {
+
+                    alert('La aplicacion ha sido creada exitosamente')
+                    
+                    // history.push("/step2")
+
+                })
+            })
     }
 
 
@@ -131,7 +167,7 @@ const IFrameForm = (props) => {
 
                     Program:
 
-                    <select name='option'>
+                    <select name='option' onChange={handleChangeChosenProgram}>
                         
                         <option value=''></option>
 
@@ -164,9 +200,12 @@ const IFrameForm = (props) => {
                     />
                 </label><br/>
 
+                {school === undefined ? null : school.name}<br/>
+                {school === undefined ? null : school.id}<br/>
                 {email}<br/>
                 {firstName}<br/>
                 {lastName}<br/>
+                {chosenProgram}<br/>
                 {programStartingDate}<br/>
                 {percentageRequested}<br/>
 
@@ -182,4 +221,4 @@ const IFrameForm = (props) => {
     )
 }
 
-export default IFrameForm
+export default IframeForm
