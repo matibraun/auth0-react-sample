@@ -4,10 +4,10 @@ import { IFrameForm } from "../components";
 
 const CodingDojo = () => {
 
-    const school = 'Coding Dojo'
+    const schoolId = '5'
 
     return (
-        <IFrameForm school={school}/>
+        <IFrameForm schoolId={schoolId}/>
     )
 };
 

@@ -8,6 +8,15 @@ import { useHistory } from 'react-router-dom';
 
 const IFrameForm = (props) => {
 
+    const schoolsURL = "http://127.0.0.1:8000/app_flevo/schools/";
+
+    const currentSchoolURL =  schoolsURL + props.schoolId + "/";;
+
+    const programsURL = "http://127.0.0.1:8000/app_flevo/programs/";
+
+    const currentPrograms = programsURL + "?schoolId=" + props.schoolId
+
+
     const [email, setEmail] = useState();
 
     const [firstName, setFirstName] = useState();
@@ -15,14 +24,36 @@ const IFrameForm = (props) => {
 
     const [school, setSchool] = useState()
 
-    const [program, setProgram] = useState([])
+    const [programs, setPrograms] = useState([])
 
     const [programStartingDate, setProgramStartingDate] = useState(null)
     const [percentageRequested, setPercentageRequested] = useState(100)
 
 
+
+
     useEffect(() => {
-        setSchool(props.school)                    
+        axios
+        .all([axios.get(currentSchoolURL), axios.get(currentPrograms)])
+        .then(
+            axios.spread((...responses) => {
+                const responseSchool = responses[0];
+                const responsePrograms = responses[1];
+
+                console.log(responseSchool);
+                console.log(responseSchool.data);
+
+                // console.log(responsePrograms);
+                // console.log(responsePrograms.data)
+
+                setSchool(responseSchool.data);
+                setPrograms(responsePrograms.data);
+
+                console.log(school)
+                console.log(programs)
+
+            })
+        )
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
@@ -39,7 +70,7 @@ const IFrameForm = (props) => {
     }
 
     function handleChangeProgram(event) {
-        setProgram(event.target.value);
+        setPrograms(event.target.value);
     }
 
     function handleChangeProgramStartingDate(event) {
@@ -50,8 +81,7 @@ const IFrameForm = (props) => {
         setPercentageRequested(event.target.value);
     }
 
-
-
+    
     function handleClickNext(event) {
     }
 
@@ -62,7 +92,7 @@ const IFrameForm = (props) => {
 
             <div className="text-center hero">
             <img className="mb-3 app-logo" src={Logo_Flevo} alt="Flevo logo" width="2000" />
-            <h1 className="mb-4">{school}</h1>
+            {school === undefined ? null : <h1 className="mb-4">{school.name}</h1>}
             </div>
 
 
@@ -95,20 +125,25 @@ const IFrameForm = (props) => {
                     />
                 </label><br/>
 
+
+
                 <label>
 
                     Program:
 
-                    <select name='option' onChange={handleChangeProgram}>
+                    <select name='option'>
                         
                         <option value=''></option>
-                        <option value='Programa1'>Program1</option>
-                        <option value='Programa2'>Program2</option>
-                        <option value='Programa3'>Program3</option>
+
+                        {
+                        programs.map((program) => 
+                            <option value={program.id} key={program.id}>{program.name}</option>)
+                        }
 
                     </select>
 
                 </label><br/>
+
 
                 <label>
                     Program Starting Date:
@@ -132,7 +167,6 @@ const IFrameForm = (props) => {
                 {email}<br/>
                 {firstName}<br/>
                 {lastName}<br/>
-                {program}<br/>
                 {programStartingDate}<br/>
                 {percentageRequested}<br/>
 
