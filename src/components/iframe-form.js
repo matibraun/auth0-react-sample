@@ -1,5 +1,7 @@
 
 import React, { useEffect, useState } from "react";
+import Logo_Flevo from '../assets/Logo_Flevo.png';
+
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
@@ -59,8 +61,10 @@ const IFrameForm = (props) => {
         <div>
 
             <div className="text-center hero">
-                {school}
+            <img className="mb-3 app-logo" src={Logo_Flevo} alt="Flevo logo" width="2000" />
+            <h1 className="mb-4">{school}</h1>
             </div>
+
 
             <form>
 

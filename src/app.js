@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { NavBar, Footer, Loading, PersonContext } from "./components";
@@ -14,6 +14,8 @@ const App = () => {
 
   const { isLoading } = useAuth0();
 
+  const location = useLocation();
+
   if (isLoading) {
     return <Loading />;
   }
@@ -21,7 +23,9 @@ const App = () => {
   return (
     <div id="app" className="d-flex flex-column h-100">
       <PersonContext.Provider value={{person, setPerson}}>
-        <NavBar />
+
+        {location.pathname === '/coding-dojo' ? null : <NavBar />}
+
         <div className="container flex-grow-1">
           <Switch>
             <Route path="/" exact component={Home} />
