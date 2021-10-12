@@ -23,6 +23,9 @@ const IframeForm = (props) => {
 
     const [email, setEmail] = useState();
 
+    const personFilteredByEmailURL = personsURL + "?email=" + email
+
+
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
 
@@ -86,6 +89,13 @@ const IframeForm = (props) => {
         setPercentageRequested(event.target.value);
     }
 
+
+
+
+
+
+
+
     
     function handleClickNext(event) {
         event.preventDefault();
@@ -93,32 +103,77 @@ const IframeForm = (props) => {
         console.log(personsURL)
         console.log(firstName)
 
+
         axios
-            .post(personsURL, {
-                email: email,
-                password: 'Hola1234!',
-                first_name: firstName,
-                middle_name: null,
-                last_name: lastName,
-            })
-            .then((response) => {
-                console.log(response.data.id);
+        .get(personFilteredByEmailURL)
+        .then((response) => {
+            console.log(response)
+            console.log(response.data.length)
+            return response
+        })
+        .then((response) => {
+            if (response.data.length === 0) {
+                console.log('se creara una nueva person y application')
+
                 axios
-                .post(applicationsURL, {
-                    applicant: response.data.id,
-                    program: Number(chosenProgram),
-                    program_starting_date: programStartingDate,
-                    percentage_requested: percentageRequested,
-                    application_status: 1,
+                .post(personsURL, {
+                    email: email,
+                    password: 'Hola1234!',
+                    first_name: firstName,
+                    middle_name: null,
+                    last_name: lastName,
                 })
-                .then( () => {
-
-                    alert('La aplicacion ha sido creada exitosamente')
-                    
-                    // history.push("/step2")
-
+                .then((response) => {
+                    console.log(response.data.id);
+                    axios
+                    .post(applicationsURL, {
+                        applicant: response.data.id,
+                        program: Number(chosenProgram),
+                        program_starting_date: programStartingDate,
+                        percentage_requested: percentageRequested,
+                        application_status: 1,
+                    })
+                    .then( () => {
+    
+                        alert('La persona y la aplicacion han sido creadas exitosamente')
+                        
+                        // history.push("/step2")
+    
+                    })
                 })
-            })
+            
+            } else {
+
+                const currentPersonURL = personsURL + response.data[0].id + "/";
+
+                axios
+                .patch(currentPersonURL, {
+                    first_name: firstName,
+                    middle_name: null,
+                    last_name: lastName,
+                })
+                .then((response) => {
+                    console.log(response.data.id);
+                    axios
+                    .post(applicationsURL, {
+                        applicant: response.data.id,
+                        program: Number(chosenProgram),
+                        program_starting_date: programStartingDate,
+                        percentage_requested: percentageRequested,
+                        application_status: 1,
+                    })
+                    .then( () => {
+    
+                        alert('La persona ya existia. La aplicacion ha sido creada exitosamente')
+                        
+                        // history.push("/step2")
+    
+                    })
+                })
+
+            }
+        })
+
     }
 
 
