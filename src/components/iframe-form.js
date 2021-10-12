@@ -200,14 +200,6 @@ const IframeForm = (props) => {
                     />
                 </label><br/>
 
-                {school === undefined ? null : school.name}<br/>
-                {school === undefined ? null : school.id}<br/>
-                {email}<br/>
-                {firstName}<br/>
-                {lastName}<br/>
-                {chosenProgram}<br/>
-                {programStartingDate}<br/>
-                {percentageRequested}<br/>
 
 
                 <button
