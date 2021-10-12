@@ -191,7 +191,7 @@ const IframeForm = (props) => {
                         percentage_requested: percentageRequested,
                         application_status: 1,
                     })
-                    .then( () => {
+                    .then( (response) => {
     
                         var chosenProgramName = ''
                         programs.map((program) => program.id === response.data.program ? chosenProgramName = program.name : null)
