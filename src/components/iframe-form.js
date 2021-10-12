@@ -21,6 +21,14 @@ const IframeForm = (props) => {
     const currentPrograms = programsURL + "?schoolId=" + props.schoolId
 
 
+    const emailInput = React.useRef();
+    const firstNameInput = React.useRef();
+    const lastNameInput = React.useRef();
+    const chosenProgramInput = React.useRef();
+    const programStartingDateInput = React.useRef();
+    const percentageRequestedInput = React.useRef();
+
+
     const [email, setEmail] = useState();
 
     const personFilteredByEmailURL = personsURL + "?email=" + email
@@ -34,7 +42,7 @@ const IframeForm = (props) => {
     const [programs, setPrograms] = useState([])
     const [chosenProgram, setChosenProgram] = useState([])
 
-    const [programStartingDate, setProgramStartingDate] = useState(null)
+    const [programStartingDate, setProgramStartingDate] = useState()
     const [percentageRequested, setPercentageRequested] = useState(100)
 
 
@@ -91,13 +99,26 @@ const IframeForm = (props) => {
 
 
 
-
+    function clearStateAndInputFields() {
+        setEmail(null);
+        setFirstName(null);
+        setLastName(null);
+        setChosenProgram(null);
+        setProgramStartingDate(null);
+        setPercentageRequested(null);
+        emailInput.current.value = "";
+        firstNameInput.current.value = "";
+        lastNameInput.current.value = "";
+        chosenProgramInput.current.value = "";
+        programStartingDateInput.current.value = "";
+        percentageRequestedInput.current.value = 100;
+    }
 
 
 
 
     
-    function handleClickNext(event) {
+    function handleClickSendPreApplication(event) {
         event.preventDefault();
         console.log('aca')
         console.log(personsURL)
@@ -134,10 +155,12 @@ const IframeForm = (props) => {
                         application_status: 1,
                     })
                     .then( () => {
-    
-                        alert('La persona y la aplicacion han sido creadas exitosamente')
+                        console.log(programs)
+                        console.log(Number(chosenProgram))
+                        alert('El usuario ' + email + ' ha sido creado, y se ha cargado una aplicacion a su nombre')
+                        console.log('estamos acaaaa')
                         
-                        // history.push("/step2")
+                        clearStateAndInputFields()
     
                     })
                 })
@@ -164,9 +187,10 @@ const IframeForm = (props) => {
                     })
                     .then( () => {
     
-                        alert('La persona ya existia. La aplicacion ha sido creada exitosamente')
+                        alert('El usuario ' + email + ' ya existe. Se ha cargado una aplicacion a su nombre')
+                        console.log('estamos acaaaa')
                         
-                        // history.push("/step2")
+                        clearStateAndInputFields()           
     
                     })
                 })
@@ -194,6 +218,7 @@ const IframeForm = (props) => {
                     <input
                     type="email"
                     name="email"
+                    ref={emailInput}
                     onChange={handleChangeEmail}
                     />
                 </label><br/>
@@ -203,6 +228,7 @@ const IframeForm = (props) => {
                     <input
                     type="text"
                     name="first_name"
+                    ref={firstNameInput}
                     onChange={handleChangeFirstName}
                     />
                 </label><br/>
@@ -212,6 +238,7 @@ const IframeForm = (props) => {
                     <input
                     type="text"
                     name="last_name"
+                    ref={lastNameInput}
                     onChange={handleChangeLastName}
                     />
                 </label><br/>
@@ -222,7 +249,7 @@ const IframeForm = (props) => {
 
                     Program:
 
-                    <select name='option' onChange={handleChangeChosenProgram}>
+                    <select name='option' ref={chosenProgramInput} onChange={handleChangeChosenProgram}>
                         
                         <option value=''></option>
 
@@ -241,6 +268,7 @@ const IframeForm = (props) => {
                     <input
                     type="date"
                     name="program_starting_date"
+                    ref={programStartingDateInput}
                     onChange={handleChangeProgramStartingDate}
                     />
                 </label><br/>
@@ -249,8 +277,9 @@ const IframeForm = (props) => {
                     Percentage Requested:
                     <input
                     type="text" pattern="[0-9]*"
-                    defaultValue='100'
                     name="percentage_requested"
+                    defaultValue='100'
+                    ref={percentageRequestedInput}
                     onChange={handleChangePercentageRequested}
                     />
                 </label><br/>
@@ -259,8 +288,8 @@ const IframeForm = (props) => {
 
                 <button
                 type='submit'
-                onClick={handleClickNext}>
-                    Next
+                onClick={handleClickSendPreApplication}>
+                    Send Pre Application
                 </button><br/>
 
             </form>
