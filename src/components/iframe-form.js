@@ -154,10 +154,16 @@ const IframeForm = (props) => {
                         percentage_requested: percentageRequested,
                         application_status: 1,
                     })
-                    .then( () => {
+                    .then( (response) => {
+                        console.log(response)
                         console.log(programs)
                         console.log(Number(chosenProgram))
-                        alert('El usuario ' + email + ' ha sido creado, y se ha cargado una aplicacion a su nombre')
+                        
+                        var chosenProgramName = ''
+
+                        programs.map((program) => program.id === response.data.program ? chosenProgramName = program.name : null)
+
+                        alert('El usuario ' + email + ' ha sido creado, y se ha cargado una aplicacion a su nombre con id ' + response.data.id + ' para el curso ' + chosenProgramName)
                         console.log('estamos acaaaa')
                         
                         clearStateAndInputFields()
@@ -187,7 +193,10 @@ const IframeForm = (props) => {
                     })
                     .then( () => {
     
-                        alert('El usuario ' + email + ' ya existe. Se ha cargado una aplicacion a su nombre')
+                        var chosenProgramName = ''
+                        programs.map((program) => program.id === response.data.program ? chosenProgramName = program.name : null)
+
+                        alert('El usuario ' + email + ' ya existe. Se ha cargado una aplicacion a su nombre con id ' + response.data.id + ' para el curso ' + chosenProgramName)
                         console.log('estamos acaaaa')
                         
                         clearStateAndInputFields()           
