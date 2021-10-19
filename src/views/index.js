@@ -11,6 +11,7 @@ import Step4 from "./step4";
 import ApplicationReview from "./application-review";
 import ApplicationSuccess from "./application-success";
 import CodingDojo from "./coding-dojo";
+import TestAuth0 from "./test-auth0";
 
 
 export {
@@ -26,5 +27,6 @@ export {
     Step4,
     ApplicationReview,
     ApplicationSuccess,
-    CodingDojo
+    CodingDojo,
+    TestAuth0,
 };

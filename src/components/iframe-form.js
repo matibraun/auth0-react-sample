@@ -114,9 +114,6 @@ const IframeForm = (props) => {
         percentageRequestedInput.current.value = 100;
     }
 
-
-
-
     
     function handleClickSendPreApplication(event) {
         event.preventDefault();
@@ -160,9 +157,7 @@ const IframeForm = (props) => {
                         console.log(Number(chosenProgram))
                         
                         var chosenProgramName = ''
-
                         programs.map((program) => program.id === response.data.program ? chosenProgramName = program.name : null)
-
                         alert('El usuario ' + email + ' ha sido creado, y se ha cargado una aplicacion a su nombre con id ' + response.data.id + ' para el curso ' + chosenProgramName)
                         console.log('estamos acaaaa')
                         
@@ -203,10 +198,8 @@ const IframeForm = (props) => {
     
                     })
                 })
-
             }
         })
-
     }
 
 
